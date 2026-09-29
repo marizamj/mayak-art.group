@@ -62,6 +62,15 @@ publishing, or ask Claude to prepare the photos. The ones in this repo are alrea
 Set `width` and `height` on each `<img>` to the image's real size. Every image needs an `alt`
 text describing it.
 
+## After changing the CSS
+
+Pages load the stylesheet as `css/style.css?v=2`. When you change `style.css`, bump the number
+in every page (e.g. `?v=3`) so visitors' browsers fetch the new version instead of a cached one:
+
+```bash
+sed -i '' 's/style\.css?v=[0-9]*/style.css?v=3/' *.html projects/*.html
+```
+
 ## Changing the header or footer
 
 The header and footer are repeated in every page between the `<!-- HEADER START -->` /

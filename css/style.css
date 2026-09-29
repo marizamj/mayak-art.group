@@ -440,6 +440,26 @@ figcaption { margin-top: 10px; }
   border: 1px dashed var(--rule);
 }
 
+/* Fade-in: photos, videos and tiles gently fade and rise as they scroll
+   into view. Pure CSS; browsers without scroll-driven animations (and
+   people who prefer reduced motion) simply see everything without it. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .project-content > figure,
+    .block-gallery a,
+    .tile {
+      animation: fade-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* ---------- Teaser (in-development project) ---------- */
 
 .project-hero .stripes { aspect-ratio: auto; height: 36vh; }
