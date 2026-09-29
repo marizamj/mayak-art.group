@@ -403,25 +403,34 @@ figcaption { margin-top: 10px; }
   .block-credits dl > div { grid-template-columns: 1fr; gap: 0.15rem; }
 }
 
-/* Gallery: many photos in 3 columns (2 on phones), each keeping its own
-   shape (no cropping). Each links to the full-size image. */
+/* Gallery: many photos in rows that read left to right, in order.
+   Each photo keeps its own shape (no cropping); rows are evened out using
+   each item's aspect ratio, set as style="--ar: width/height" on the <a>.
+   Each links to the full-size image. */
 .block-gallery {
-  columns: 3;
-  column-gap: 8px;
+  --row: 240px;              /* target row height */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.block-gallery::after {      /* keeps the last row from stretching */
+  content: "";
+  flex-grow: 999;
 }
 .block-gallery a {
   display: block;
-  margin-bottom: 8px;
-  break-inside: avoid;
+  flex-grow: var(--ar, 1);
+  flex-basis: calc(var(--ar, 1) * var(--row));
 }
 .block-gallery img {
   width: 100%;
+  height: auto;
   background: var(--placeholder);
   transition: filter 0.3s ease;
 }
 .block-gallery a:hover img { filter: brightness(1.15); }
 @media (max-width: 600px) {
-  .block-gallery { columns: 2; }
+  .block-gallery { --row: 150px; }
 }
 
 /* Stand-in for a video that isn't uploaded yet. */

@@ -159,15 +159,15 @@ Or embed SoundCloud/Bandcamp using the "Interactive / embed" block below.</pre>
     <section class="ref">
       <h2 class="mono">Gallery (many small photos)</h2>
       <div class="block-gallery">
-        <a href="images/the-lighthouse-of-now-here/build/img_3771.jpg"><img src="images/the-lighthouse-of-now-here/build/img_3771.jpg" alt="" width="1500" height="2000" loading="lazy"></a>
-        <a href="images/the-lighthouse-of-now-here/build/img_4156.jpg"><img src="images/the-lighthouse-of-now-here/build/img_4156.jpg" alt="" width="1500" height="2000" loading="lazy"></a>
-        <a href="images/the-lighthouse-of-now-here/build/img_4187.jpg"><img src="images/the-lighthouse-of-now-here/build/img_4187.jpg" alt="" width="1500" height="2000" loading="lazy"></a>
+        <a style="--ar: 0.75" href="images/the-lighthouse-of-now-here/build/img_3771.jpg"><img src="images/the-lighthouse-of-now-here/build/img_3771.jpg" alt="" width="1500" height="2000" loading="lazy"></a>
+        <a style="--ar: 0.75" href="images/the-lighthouse-of-now-here/build/img_4156.jpg"><img src="images/the-lighthouse-of-now-here/build/img_4156.jpg" alt="" width="1500" height="2000" loading="lazy"></a>
+        <a style="--ar: 0.75" href="images/the-lighthouse-of-now-here/build/img_4187.jpg"><img src="images/the-lighthouse-of-now-here/build/img_4187.jpg" alt="" width="1500" height="2000" loading="lazy"></a>
       </div>
 <pre>&lt;div class="block-gallery"&gt;
-  &lt;a href="../images/SLUG/FILE.jpg"&gt;&lt;img src="../images/SLUG/thumbs/FILE.jpg" alt="..." width="1200" height="900" loading="lazy"&gt;&lt;/a&gt;
-  &lt;!-- repeat one line per photo --&gt;
+  &lt;a style="--ar: 0.75" href="../images/SLUG/FILE.jpg"&gt;&lt;img src="../images/SLUG/thumbs/FILE.jpg" alt="..." width="600" height="800" loading="lazy"&gt;&lt;/a&gt;
+  &lt;!-- repeat one line per photo. --ar = width ÷ height (portrait 3:4 = 0.75, landscape 4:3 = 1.333) --&gt;
 &lt;/div&gt;</pre>
-      <p class="mono" style="margin-top:1rem">3 columns (2 on phones); photos keep their own shape. Clicking opens the full photo.</p>
+      <p class="mono" style="margin-top:1rem">Rows read left to right in order; photos keep their own shape. Clicking opens the full photo.</p>
     </section>
 
     <section class="ref">
