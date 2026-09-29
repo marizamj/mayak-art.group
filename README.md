@@ -9,6 +9,7 @@ projects/*.html         one page per project
 css/style.css           all styling (colors & fonts at the top)
 images/<project>/       images per project
 media/                  self-hosted audio / short video loops
+js/site.js              keeps the text column in view on split-layout pages (optional polish)
 snippets.html           copy-paste blocks for project pages (not linked, not indexed)
 404.html                "page not found"
 CNAME                   custom domain for GitHub Pages

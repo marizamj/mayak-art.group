@@ -113,8 +113,10 @@ contact email, social links.
 
 ## JavaScript
 
-The site uses no JavaScript of its own. The beam and hover effects are CSS.
-Only third-party embeds (Vimeo/YouTube) run their own scripts.
+The beam, hover and fade-in effects are CSS. One small script (`js/site.js`)
+keeps the split layout's text column in view when it is taller than the
+screen; without it the column simply scrolls with the page. Third-party
+embeds (Vimeo/YouTube) run their own scripts.
 
 ## Accessibility & basics
 

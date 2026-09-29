@@ -213,6 +213,15 @@ p:last-child { margin-bottom: 0; }
   text-transform: uppercase;
 }
 
+.project-subtitle {
+  display: block;
+  margin-top: 0.35em;
+  font-size: 0.34em;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--muted);
+}
+
 .project-hero img,
 .project-hero .stripes {
   width: 100%;
@@ -273,10 +282,7 @@ p:last-child { margin-bottom: 0; }
 }
 .layout-split .project-info {
   grid-area: info;
-  position: sticky;
-  top: 0;
-  max-height: 100vh;
-  overflow-y: auto;
+  /* stays in view while media scrolls: set by js/site.js */
   padding: var(--gap) var(--gutter);
   display: flex;
   flex-direction: column;
