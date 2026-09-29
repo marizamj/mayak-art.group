@@ -439,6 +439,13 @@ figcaption { margin-top: 10px; }
   .block-gallery { --row: 150px; }
 }
 
+/* Large gallery: for photos meant to be read (e.g. book pages).
+   About two per row on desktop, one per row on phones. */
+.block-gallery.gallery-large { --row: 520px; gap: 12px; }
+@media (max-width: 600px) {
+  .block-gallery.gallery-large { --row: 1000px; }
+}
+
 /* Stand-in for a video that isn't uploaded yet. */
 .embed-placeholder {
   position: absolute; inset: 0;
