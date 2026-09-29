@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Snippets — MAYAK art group</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Only for this reference page */
+    .ref { padding: var(--gutter); border-bottom: 1px solid var(--rule); }
+    .ref h2 { margin-bottom: 1rem; }
+    .ref pre {
+      overflow-x: auto; margin: 1.5rem 0 0; padding: 1rem;
+      border: 1px solid var(--rule); font: 0.8125rem/1.5 var(--mono); color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <!--
+    SNIPPETS — copy-paste reference for project pages. Not linked from the site.
+    Each section shows a block as it looks, then the HTML to copy into the
+    <div class="project-content"> of a project page (in projects/).
+    Image paths below start with ../ because project pages live in projects/.
+  -->
+  <header class="topbar mono"><a href="./">MAYAK / Art group</a><span>Snippets (not public)</span></header>
+
+  <main>
+    <section class="ref">
+      <h2 class="mono">Text</h2>
+      <section class="block-text">
+        <h2>Optional heading</h2>
+        <p>Paragraph text. Keep each paragraph in its own &lt;p&gt;.</p>
+      </section>
+<pre>&lt;section class="block-text"&gt;
+  &lt;h2&gt;Optional heading&lt;/h2&gt;
+  &lt;p&gt;Paragraph text.&lt;/p&gt;
+&lt;/section&gt;</pre>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Image</h2>
+      <figure class="block-image">
+        <img src="images/project-one/detail-1.svg" alt="" width="1600" height="1067" loading="lazy">
+        <figcaption class="mono">Caption, year. Photo: Name</figcaption>
+      </figure>
+<pre>&lt;figure class="block-image"&gt;
+  &lt;img src="../images/SLUG/FILE.jpg" alt="What the image shows" width="2000" height="1333" loading="lazy"&gt;
+  &lt;figcaption class="mono"&gt;Caption, year. Photo: Name&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+      <p class="mono" style="margin-top:1rem">width/height = the image's real pixel size (prevents the page jumping while it loads). Caption is optional.</p>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Image pair</h2>
+      <figure class="block-pair">
+        <img src="images/project-one/detail-2.svg" alt="" width="1200" height="1500" loading="lazy">
+        <img src="images/project-one/detail-3.svg" alt="" width="1200" height="1500" loading="lazy">
+        <figcaption class="mono">Optional caption</figcaption>
+      </figure>
+<pre>&lt;figure class="block-pair"&gt;
+  &lt;img src="../images/SLUG/A.jpg" alt="..." width="1200" height="1500" loading="lazy"&gt;
+  &lt;img src="../images/SLUG/B.jpg" alt="..." width="1200" height="1500" loading="lazy"&gt;
+  &lt;figcaption class="mono"&gt;Optional caption&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Video (Vimeo / YouTube)</h2>
+<pre>&lt;figure class="block-video"&gt;
+  &lt;div class="embed"&gt;
+    &lt;iframe src="https://player.vimeo.com/video/VIDEO_ID?dnt=1" title="Video title"
+      loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+  &lt;/div&gt;
+  &lt;figcaption class="mono"&gt;Caption&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+YouTube: src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+Not 16:9? Add a ratio: &lt;div class="embed" style="--ratio: 4 / 3"&gt;</pre>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Short video loop (self-hosted, silent)</h2>
+<pre>&lt;figure class="block-loop"&gt;
+  &lt;video src="../media/FILE.mp4" autoplay muted loop playsinline preload="metadata"&gt;&lt;/video&gt;
+&lt;/figure&gt;</pre>
+      <p class="mono" style="margin-top:1rem">Keep loops short and small (under ~10 MB). Longer videos → Vimeo/YouTube.</p>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Audio</h2>
+      <figure class="block-audio">
+        <figcaption class="mono">Sound piece — title</figcaption>
+        <audio controls preload="none"></audio>
+      </figure>
+<pre>&lt;figure class="block-audio"&gt;
+  &lt;figcaption class="mono"&gt;Sound piece — title&lt;/figcaption&gt;
+  &lt;audio controls preload="none" src="../media/FILE.mp3"&gt;&lt;/audio&gt;
+&lt;/figure&gt;
+
+Or embed SoundCloud/Bandcamp using the "Interactive / embed" block below.</pre>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Interactive / any embed</h2>
+<pre>&lt;figure class="block-embed"&gt;
+  &lt;div class="embed" style="--ratio: 4 / 3"&gt;
+    &lt;iframe src="https://..." title="What this is" loading="lazy"&gt;&lt;/iframe&gt;
+  &lt;/div&gt;
+  &lt;figcaption class="mono"&gt;Caption&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Links</h2>
+      <section class="block-links mono" aria-label="Links">
+        <ul>
+          <li><a href="#">Press — Publication name</a></li>
+          <li><a href="#">Venue — Venue name</a></li>
+        </ul>
+      </section>
+<pre>&lt;section class="block-links mono" aria-label="Links"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="https://..."&gt;Press — Publication name&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="https://..."&gt;Venue — Venue name&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</pre>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Homepage tile (in index.html)</h2>
+<pre>&lt;a class="tile" href="projects/SLUG.html"&gt;
+  &lt;img class="tile-image" src="images/SLUG/cover.jpg" alt="" width="1600" height="1200"&gt;
+  &lt;div class="tile-label mono"&gt;&lt;span&gt;04 — &lt;span class="title"&gt;Title&lt;/span&gt;&lt;/span&gt;&lt;span&gt;2026&lt;/span&gt;&lt;/div&gt;
+&lt;/a&gt;</pre>
+    </section>
+  </main>
+</body>
+</html>

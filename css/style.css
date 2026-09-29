@@ -1,0 +1,430 @@
+/* ==========================================================================
+   MAYAK art group — site styles
+   Colors, fonts and spacing live in the variables below; change them here
+   and the whole site follows.
+   ========================================================================== */
+
+:root {
+  --bg: #07090d;            /* night sea */
+  --fg: #e8e6df;            /* warm off-white text */
+  --muted: #9a988f;         /* secondary text */
+  --rule: rgba(232, 230, 223, 0.22);  /* thin grid lines */
+  --beam: rgba(255, 226, 150, 0.2);   /* lighthouse light */
+  --placeholder: #141821;   /* background behind images while loading */
+
+  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --gutter: clamp(16px, 2.5vw, 32px);
+  --gap: clamp(32px, 5vw, 64px);
+
+  color-scheme: dark;       /* dark native controls (audio/video players) */
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video, iframe { display: block; max-width: 100%; }
+img { height: auto; }
+
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+a:hover { color: #fff; }
+
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+h1, h2, h3 { margin: 0; line-height: 1; }
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+
+.mono {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus { left: var(--gutter); top: 8px; z-index: 10; background: var(--bg); padding: 4px 8px; }
+
+/* ---------- Top bar ---------- */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 14px var(--gutter);
+  border-bottom: 1px solid var(--rule);
+}
+.topbar a { text-decoration: none; }
+.topbar a:hover { color: var(--fg); }
+.topbar nav { display: flex; gap: 0.5em; }
+.topbar nav a + a::before { content: "·"; margin-right: 0.5em; color: var(--muted); }
+.topbar [aria-current="page"] { color: var(--fg); }
+
+/* ---------- Footer ---------- */
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding: 20px var(--gutter);
+  border-top: 1px solid var(--rule);
+  margin-top: var(--gap);
+}
+.footer ul { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; list-style: none; margin: 0; padding: 0; }
+.footer a { text-decoration: none; }
+.footer a:hover { color: var(--fg); }
+
+/* ---------- Homepage: wordmark + beam ---------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--rule);
+}
+
+.wordmark {
+  margin: 0;
+  padding: 0.12em calc(var(--gutter) - 0.04em) 0.06em;
+  font-weight: 800;
+  font-size: 28vw;           /* "MAYAK" spans the full width */
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  color: #d9d6cc;
+}
+
+.tagline {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 var(--gutter) 14px;
+}
+
+/* The lighthouse beam: a soft cone of light that slowly sweeps across.
+   Pure CSS, no JavaScript. Hidden for people who prefer reduced motion. */
+.beam {
+  position: absolute;
+  left: 4%;
+  top: -60%;
+  width: 220%;
+  height: 220%;
+  transform-origin: 0 50%;
+  background: conic-gradient(from 72deg at 0 50%,
+    transparent 0deg, var(--beam) 12deg, rgba(255, 226, 150, 0.08) 22deg, transparent 34deg);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: sweep 14s ease-in-out infinite alternate;
+}
+
+@keyframes sweep {
+  from { transform: rotate(-38deg); }
+  to   { transform: rotate(22deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beam { animation: none; transform: rotate(-8deg); }
+}
+
+/* ---------- Homepage: project grid ---------- */
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;          /* clips the outer right edge of the tile lines */
+}
+
+.tile {
+  display: block;
+  padding: var(--gutter);
+  text-decoration: none;
+  /* grid lines to the right of and below every tile */
+  box-shadow: 1px 0 0 var(--rule), 0 1px 0 var(--rule);
+}
+
+.tile-image {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  object-fit: cover;
+  background: var(--placeholder);
+  transition: filter 0.4s ease;
+}
+
+.tile-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 12px;
+}
+.tile-label .title { color: var(--fg); }
+
+/* Images rest slightly in the dark and light up on hover, as if the beam
+   lands on them. Only on devices that can hover. */
+@media (hover: hover) {
+  .tile .tile-image { filter: brightness(0.78) saturate(0.9); }
+  .tile:hover .tile-image,
+  .tile:focus-visible .tile-image { filter: brightness(1.05) saturate(1); }
+}
+
+/* Diagonal stripes stand in for a project that has no images yet. */
+.stripes {
+  background: repeating-linear-gradient(45deg,
+    rgba(232, 230, 223, 0.16) 0 1px, transparent 1px 10px);
+}
+
+@media (max-width: 1000px) {
+  .projects { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .projects { grid-template-columns: 1fr; }
+}
+
+/* ---------- Project pages (shared) ---------- */
+
+.project-label { margin-bottom: 0.9rem; }
+
+.project-title {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.project-hero img,
+.project-hero .stripes {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 68vh;
+  object-fit: cover;
+  background-color: var(--placeholder);
+}
+
+.facts { margin: 0; line-height: 1.5; }
+.facts dt { margin-top: 0.9rem; }
+.facts dt:first-child { margin-top: 0; }
+.facts dd { margin: 0.1rem 0 0; color: var(--fg); text-transform: none; font-size: 0.8125rem; }
+
+.intro { font-size: 1.25rem; line-height: 1.5; max-width: 38em; }
+
+/* Content blocks stack with generous spacing. */
+.project-content > * + * { margin-top: var(--gap); }
+
+/* ---------- Layout: story ----------
+   Hero image, huge title, then a narrow facts column beside the main column. */
+
+.layout-story .project {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) 3fr;
+  grid-template-areas:
+    "hero  hero"
+    "head  head"
+    "facts intro"
+    "facts content";
+}
+.layout-story .project-info { display: contents; }
+.layout-story .project-hero { grid-area: hero; }
+.layout-story .project-head {
+  grid-area: head;
+  padding: var(--gap) var(--gutter) var(--gutter);
+  border-bottom: 1px solid var(--rule);
+}
+.layout-story .project-title { font-size: clamp(2.75rem, 10vw, 9rem); }
+.layout-story .project-facts {
+  grid-area: facts;
+  padding: var(--gutter);
+  border-right: 1px solid var(--rule);
+}
+.layout-story .project-intro { grid-area: intro; padding: var(--gutter) var(--gutter) 0; }
+.layout-story .project-content { grid-area: content; padding: var(--gap) var(--gutter) 0; }
+
+/* ---------- Layout: split ----------
+   Title, text and facts stay fixed on the left; media scrolls on the right. */
+
+.layout-split .project {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  grid-template-areas:
+    "info hero"
+    "info content";
+  align-items: start;
+}
+.layout-split .project-info {
+  grid-area: info;
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: var(--gap) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter);
+}
+.layout-split .project-title { font-size: clamp(2.5rem, 5.5vw, 5.5rem); }
+.layout-split .project-hero,
+.layout-split .project-content {
+  padding: var(--gutter);
+  border-left: 1px solid var(--rule);
+}
+.layout-split .project-hero { grid-area: hero; padding-bottom: 0; }
+.layout-split .project-hero img { max-height: none; aspect-ratio: auto; }
+.layout-split .project-content { grid-area: content; padding-top: var(--gap); }
+.layout-split .intro { font-size: 1.0625rem; }
+
+/* Phones & small tablets: both layouts become one column. */
+@media (max-width: 800px) {
+  .layout-story .project,
+  .layout-split .project {
+    grid-template-columns: 1fr;
+    grid-template-areas: none;
+  }
+  .layout-story .project > *,
+  .layout-story .project-info > *,
+  .layout-split .project > * { grid-area: auto; }
+  .layout-story .project-facts { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .layout-story .project-intro { padding-top: var(--gutter); }
+  .layout-split .project-info { position: static; max-height: none; }
+  .layout-split .project-hero,
+  .layout-split .project-content { border-left: 0; }
+}
+
+/* ---------- Content blocks (see snippets.html) ---------- */
+
+.block-text { max-width: 38em; }
+.block-text h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.8em;
+}
+
+figure { margin: 0; }
+figcaption { margin-top: 10px; }
+
+.block-image img,
+.block-pair img { width: 100%; background: var(--placeholder); }
+
+.block-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+}
+.block-pair figcaption { grid-column: 1 / -1; margin-top: 0; }
+@media (max-width: 600px) {
+  .block-pair { grid-template-columns: 1fr; }
+}
+
+.embed {
+  position: relative;
+  aspect-ratio: var(--ratio, 16 / 9);
+  background: var(--placeholder);
+}
+.embed iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
+}
+
+.block-loop video { width: 100%; background: var(--placeholder); }
+
+.block-audio {
+  border: 1px solid var(--rule);
+  padding: var(--gutter);
+}
+.block-audio figcaption { margin: 0 0 12px; }
+.block-audio audio { width: 100%; }
+
+.block-links ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.block-links li { border-bottom: 1px solid var(--rule); }
+.block-links a {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 12px 0;
+  text-decoration: none;
+  color: var(--fg);
+}
+.block-links a::after { content: "→"; }
+.block-links a:hover { background: rgba(232, 230, 223, 0.04); }
+
+/* ---------- Teaser (in-development project) ---------- */
+
+.project-hero .stripes { aspect-ratio: auto; height: 36vh; }
+
+.status { color: var(--fg); }
+.status::before { content: "● "; color: rgba(255, 226, 150, 0.8); }
+
+/* ---------- About page ---------- */
+
+.page-head {
+  padding: var(--gap) var(--gutter) var(--gutter);
+  border-bottom: 1px solid var(--rule);
+}
+.page-title {
+  font-size: clamp(2.75rem, 10vw, 9rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.statement {
+  padding: var(--gap) var(--gutter);
+  font-size: clamp(1.35rem, 2.6vw, 2.1rem);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  max-width: 34em;
+}
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) 3fr;
+  border-top: 1px solid var(--rule);
+}
+.contact h2 {
+  padding: var(--gutter);
+  border-right: 1px solid var(--rule);
+  font-weight: normal;
+}
+.contact ul { list-style: none; margin: 0; padding: 0; }
+.contact li {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 14px var(--gutter);
+  border-bottom: 1px solid var(--rule);
+}
+.contact li:last-child { border-bottom: 0; }
+.contact a { font-size: 1.125rem; }
+@media (max-width: 600px) {
+  .contact { grid-template-columns: 1fr; }
+  .contact h2 { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .contact li { grid-template-columns: 1fr; gap: 0.2rem; }
+}
+
+/* ---------- 404 ---------- */
+
+.notfound { padding: var(--gap) var(--gutter); }
+.notfound p { margin-top: 1.5rem; }

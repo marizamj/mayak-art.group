@@ -11,8 +11,9 @@ page with a statement and contact info. English only.
 
 ## Decisions
 
-- **Hand-written static site**: plain HTML, one CSS file, one small JS file.
-  No framework (no React), no build step, no static site generator.
+- **Hand-written static site**: plain HTML and one CSS file. No JavaScript is
+  needed (the beam is a CSS animation). No framework (no React), no build step,
+  no static site generator.
 - **Hosting**: GitHub repository, published with GitHub Pages (auto-deploy on
   push to `main`), custom domain mayak-art.group with HTTPS.
 - **Content is edited by hand** in the HTML files; no CMS/admin UI.
@@ -40,11 +41,12 @@ index.html                 homepage
 about.html                 statement + contact
 projects/<slug>.html       one page per project (incl. the in-development teaser)
 css/style.css              all styles
-js/site.js                 beam animation + hover niceties (progressive enhancement)
 images/<slug>/…            web-sized images (~2000px long edge, JPG/WebP)
 media/…                    optional small self-hosted audio / short video loops
 snippets.html              copy-paste reference for every media block (not linked from the site)
+404.html                   not-found page (served by GitHub Pages)
 CNAME                      mayak-art.group (for GitHub Pages)
+.nojekyll                  serve files as-is on GitHub Pages
 README.md                  how to add a project, edit text, publish
 ```
 
@@ -109,18 +111,19 @@ images, so real content can be dropped in. Needed from MAYAK later: project
 titles/years/mediums/places/texts, images, Vimeo/YouTube links, statement,
 contact email, social links.
 
-## Behaviour without JavaScript
+## JavaScript
 
-Everything (navigation, layouts, media) works with JS disabled. JS only adds
-the beam animation and hover polish.
+The site uses no JavaScript of its own. The beam and hover effects are CSS.
+Only third-party embeds (Vimeo/YouTube) run their own scripts.
 
 ## Accessibility & basics
 
 - Semantic HTML (`header`, `nav`, `main`, `footer`), alt text on every image,
   visible focus styles, sufficient contrast on the dark background.
 - `prefers-reduced-motion` stops the beam.
-- Per-page `<title>`, meta description and Open Graph tags (title, description,
-  image) so shared links look good.
+- Per-page `<title>`, meta description and Open Graph tags (title, description)
+  so shared links look good. `og:image` is prepared but commented out until real
+  1200×630 JPG preview images exist.
 - Favicon.
 
 ## Deployment
@@ -136,7 +139,6 @@ the beam animation and hover polish.
 
 - Every page checked at desktop (~1440px), tablet (~768px), phone (~375px).
 - All internal links resolve; no console errors.
-- Pages usable with JavaScript disabled.
 - Reduced-motion preference stops the beam.
 - Images are web-sized (no multi-MB originals).
 
