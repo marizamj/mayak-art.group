@@ -42,7 +42,7 @@
     <section class="ref">
       <h2 class="mono">Image</h2>
       <figure class="block-image">
-        <img src="images/project-one/detail-1.svg" alt="" width="1600" height="1067" loading="lazy">
+        <img src="images/the-lighthouse-of-now-here/detail-1.svg" alt="" width="1600" height="1067" loading="lazy">
         <figcaption class="mono">Caption, year. Photo: Name</figcaption>
       </figure>
 <pre>&lt;figure class="block-image"&gt;
@@ -55,8 +55,8 @@
     <section class="ref">
       <h2 class="mono">Image pair</h2>
       <figure class="block-pair">
-        <img src="images/project-one/detail-2.svg" alt="" width="1200" height="1500" loading="lazy">
-        <img src="images/project-one/detail-3.svg" alt="" width="1200" height="1500" loading="lazy">
+        <img src="images/the-lighthouse-of-now-here/detail-2.svg" alt="" width="1200" height="1500" loading="lazy">
+        <img src="images/the-lighthouse-of-now-here/detail-3.svg" alt="" width="1200" height="1500" loading="lazy">
         <figcaption class="mono">Optional caption</figcaption>
       </figure>
 <pre>&lt;figure class="block-pair"&gt;
@@ -126,6 +126,46 @@ Or embed SoundCloud/Bandcamp using the "Interactive / embed" block below.</pre>
     &lt;li&gt;&lt;a href="https://..."&gt;Venue — Venue name&lt;/a&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/section&gt;</pre>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Chapter heading</h2>
+      <p class="mono">Splits a long page into sections (e.g. The Lighthouse / The Book / Build &amp; Strike).</p>
+<pre>&lt;h2 class="chapter-title mono"&gt;Chapter name&lt;/h2&gt;</pre>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Credits</h2>
+      <section class="block-credits">
+        <h2 class="mono">Credits</h2>
+        <dl>
+          <div><dt class="mono">Role</dt><dd>Name, Name</dd></div>
+          <div><dt class="mono">Another role</dt><dd>Name (<a href="#">@handle</a>)</dd></div>
+        </dl>
+        <p class="credits-note">Optional closing note.</p>
+      </section>
+<pre>&lt;section class="block-credits" aria-labelledby="credits-title"&gt;
+  &lt;h2 id="credits-title" class="mono"&gt;Credits&lt;/h2&gt;
+  &lt;dl&gt;
+    &lt;div&gt;&lt;dt class="mono"&gt;Role&lt;/dt&gt;&lt;dd&gt;Name, Name&lt;/dd&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;dt class="mono"&gt;Another role&lt;/dt&gt;&lt;dd&gt;Name (&lt;a href="https://..."&gt;@handle&lt;/a&gt;)&lt;/dd&gt;&lt;/div&gt;
+  &lt;/dl&gt;
+  &lt;p class="credits-note"&gt;Optional closing note.&lt;/p&gt;
+&lt;/section&gt;</pre>
+    </section>
+
+    <section class="ref">
+      <h2 class="mono">Gallery (many small photos)</h2>
+      <div class="block-gallery">
+        <a href="images/the-lighthouse-of-now-here/build-1.svg"><img src="images/the-lighthouse-of-now-here/build-1.svg" alt="" width="1200" height="900" loading="lazy"></a>
+        <a href="images/the-lighthouse-of-now-here/build-2.svg"><img src="images/the-lighthouse-of-now-here/build-2.svg" alt="" width="1200" height="900" loading="lazy"></a>
+        <a href="images/the-lighthouse-of-now-here/build-3.svg"><img src="images/the-lighthouse-of-now-here/build-3.svg" alt="" width="1200" height="900" loading="lazy"></a>
+      </div>
+<pre>&lt;div class="block-gallery"&gt;
+  &lt;a href="../images/SLUG/FILE.jpg"&gt;&lt;img src="../images/SLUG/FILE.jpg" alt="..." width="1200" height="900" loading="lazy"&gt;&lt;/a&gt;
+  &lt;!-- repeat one line per photo --&gt;
+&lt;/div&gt;</pre>
+      <p class="mono" style="margin-top:1rem">3 per row (2 on phones), cropped to 4:3. Clicking opens the full photo.</p>
     </section>
 
     <section class="ref">

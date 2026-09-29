@@ -30,7 +30,7 @@ with your own photos and update the `src` in the HTML to match.
 
 ## Add a project
 
-1. Copy an existing project page, e.g. `projects/project-one.html` → `projects/new-name.html`.
+1. Copy an existing project page, e.g. `projects/the-lighthouse-of-now-here.html` → `projects/new-name.html`.
 2. Choose the layout on the `<body>` tag:
    - `layout-story`: big hero image, title, facts column + content column
    - `layout-split`: text fixed on the left, images scroll on the right
