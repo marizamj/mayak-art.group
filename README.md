@@ -39,7 +39,7 @@ with your own photos and update the `src` in the HTML to match.
 4. Build the content from the blocks in `snippets.html` (text, image, image pair,
    video, loop, audio, embed, links).
 5. Put images in `images/new-name/`.
-6. Add a tile to the grid in `index.html` (snippet at the bottom of `snippets.html`).
+6. Add a tile at the **top** of the grid in `index.html` (newest first; snippet at the bottom of `snippets.html`).
 
 ## Images
 
