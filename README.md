@@ -49,6 +49,16 @@ On a Mac, this resizes every JPG in a folder into `web/` (built-in `sips`):
 mkdir -p web && sips -Z 2000 *.jpg --out web/
 ```
 
+For galleries, also make small previews (800px) in a `thumbs/` folder next to the photos,
+use the preview in `src` and link the full photo:
+
+```bash
+mkdir -p thumbs && sips -Z 800 -s formatOptions 75 *.jpg --out thumbs/
+```
+
+Phone photos often contain GPS location. Resizing with `sips` keeps it, so strip it before
+publishing, or ask Claude to prepare the photos. The ones in this repo are already clean.
+
 Set `width` and `height` on each `<img>` to the image's real size. Every image needs an `alt`
 text describing it.
 
