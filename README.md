@@ -78,28 +78,3 @@ sed -i '' 's/style\.css?v=[0-9]*/style.css?v=3/' *.html projects/*.html
 The header and footer are repeated in every page between the `<!-- HEADER START -->` /
 `<!-- FOOTER START -->` comments. Change them in all pages. Pages in `projects/` use `../`
 in their links.
-
-## Publishing (GitHub Pages)
-
-1. Create a repository on GitHub and push this folder to it.
-2. On GitHub, go to **Settings → Pages**. Set Source to *Deploy from a branch*, then pick branch `main` and folder `/ (root)`.
-3. Set **Custom domain** to `mayak-art.group` (the `CNAME` file already contains it).
-4. At your domain registrar, set the DNS records:
-
-   | Type  | Name  | Value                   |
-   |-------|-------|-------------------------|
-   | A     | @     | 185.199.108.153         |
-   | A     | @     | 185.199.109.153         |
-   | A     | @     | 185.199.110.153         |
-   | A     | @     | 185.199.111.153         |
-   | AAAA  | @     | 2606:50c0:8000::153     |
-   | AAAA  | @     | 2606:50c0:8001::153     |
-   | AAAA  | @     | 2606:50c0:8002::153     |
-   | AAAA  | @     | 2606:50c0:8003::153     |
-   | CNAME | www   | `<your-username>.github.io` |
-
-5. When the DNS check passes (minutes to a few hours), tick **Enforce HTTPS**.
-6. Recommended: verify the domain under your GitHub account's **Settings → Pages → Verified domains**
-   so nobody else can claim it.
-
-After that, every `git push` to `main` updates the live site within a minute or two.
