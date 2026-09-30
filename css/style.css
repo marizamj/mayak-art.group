@@ -140,6 +140,8 @@ p:last-child { margin-bottom: 0; }
   animation: sweep 14s ease-in-out infinite alternate;
 }
 
+.beam.beam-follow { animation: none; }   /* js/site.js steers it instead */
+
 @keyframes sweep {
   from { transform: rotate(-38deg); }
   to   { transform: rotate(22deg); }

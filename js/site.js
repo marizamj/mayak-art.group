@@ -17,3 +17,84 @@
   window.addEventListener('resize', update);
   wide.addEventListener('change', update);
 })();
+
+// Homepage beam: follows the cursor with a delay.
+// The beam's angle is a Gaussian-weighted average of where it was asked to
+// point over the last moments (centred DELAY ms in the past, spread SIGMA),
+// so it trails the cursor smoothly. When the cursor is idle or away, it goes
+// back to a slow sweep. Only for mouse/trackpad users who haven't asked for
+// reduced motion; everyone else keeps the CSS sweep.
+(function () {
+  var beam = document.querySelector('.hero .beam');
+  if (!beam || !window.requestAnimationFrame) return;
+  var canFollow = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+  if (!canFollow.matches) return;
+
+  var DELAY = 250;          // ms the beam lags behind the cursor
+  var SIGMA = 110;          // ms spread of the Gaussian smoothing
+  var IDLE_AFTER = 2500;    // ms without movement before the sweep resumes
+  var BEAM_CENTRE = 84;     // deg: direction of the brightest part of the cone at rotate(0)
+  var MIN = -55, MAX = 40;  // deg: keep the beam within the header
+
+  var hero = beam.parentElement;
+  var samples = [];         // { t, angle }
+  var mouse = null, lastMove = -Infinity, running = false, visible = true;
+
+  // Slow back-and-forth sweep, same range and pace as the CSS animation.
+  function sweep(t) {
+    return -8 - 30 * Math.cos(t / 14000 * Math.PI);
+  }
+
+  function cursorAngle() {
+    // The cone's origin, per the .beam CSS: 4% from the header's left edge,
+    // halfway down it (measured on the header, as the beam's own box rotates).
+    var r = hero.getBoundingClientRect();
+    var ox = r.left + 0.04 * r.width, oy = r.top + 0.5 * r.height;
+    var dx = mouse.x - ox, dy = mouse.y - oy;
+    var a = Math.atan2(dx, -dy) * 180 / Math.PI - BEAM_CENTRE; // clockwise from up
+    return Math.max(MIN, Math.min(MAX, a));
+  }
+
+  function frame(now) {
+    if (!running) return;
+    var active = mouse && now - lastMove < IDLE_AFTER;
+    samples.push({ t: now, angle: active ? cursorAngle() : sweep(now) });
+    var cutoff = now - DELAY - 3 * SIGMA;
+    while (samples.length > 2 && samples[0].t < cutoff) samples.shift();
+
+    var centre = now - DELAY, sum = 0, weights = 0;
+    for (var i = 0; i < samples.length; i++) {
+      var d = samples[i].t - centre;
+      var w = Math.exp(-(d * d) / (2 * SIGMA * SIGMA));
+      sum += w * samples[i].angle;
+      weights += w;
+    }
+    var angle = weights > 1e-6 ? sum / weights : samples[samples.length - 1].angle;
+    beam.style.transform = 'rotate(' + angle.toFixed(2) + 'deg)';
+    requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (running || !visible) return;
+    running = true;
+    samples = [];
+    requestAnimationFrame(frame);
+  }
+  function stop() { running = false; }
+
+  beam.classList.add('beam-follow');   // turns off the CSS sweep
+  window.addEventListener('mousemove', function (e) {
+    mouse = { x: e.clientX, y: e.clientY };
+    lastMove = performance.now();
+  }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', function () { lastMove = -Infinity; });
+
+  // Only animate while the header is on screen.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      visible ? start() : stop();
+    }).observe(hero);
+  }
+  start();
+})();
