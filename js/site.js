@@ -33,7 +33,7 @@
   var DELAY = 250;          // ms the beam lags behind the cursor
   var SIGMA = 110;          // ms spread of the Gaussian smoothing
   var IDLE_AFTER = 2500;    // ms without movement before the sweep resumes
-  var BEAM_CENTRE = 84;     // deg: direction of the brightest part of the cone at rotate(0)
+  var BEAM_CENTRE = 84;     // deg: brightest line of the cone at rotate(0) (conic 'from' + peak stop in style.css)
   var MIN = -55, MAX = 40;  // deg: keep the beam within the header
 
   var hero = beam.parentElement;
@@ -46,10 +46,10 @@
   }
 
   function cursorAngle() {
-    // The cone's origin, per the .beam CSS: 4% from the header's left edge,
-    // halfway down it (measured on the header, as the beam's own box rotates).
+    // The cone's origin: the beam's left edge, halfway down (from its layout
+    // position, which ignores the rotation; may be off-screen).
     var r = hero.getBoundingClientRect();
-    var ox = r.left + 0.04 * r.width, oy = r.top + 0.5 * r.height;
+    var ox = r.left + beam.offsetLeft, oy = r.top + beam.offsetTop + beam.offsetHeight / 2;
     var dx = mouse.x - ox, dy = mouse.y - oy;
     var a = Math.atan2(dx, -dy) * 180 / Math.PI - BEAM_CENTRE; // clockwise from up
     return Math.max(MIN, Math.min(MAX, a));

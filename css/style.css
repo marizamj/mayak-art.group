@@ -128,13 +128,13 @@ p:last-child { margin-bottom: 0; }
    Pure CSS, no JavaScript. Hidden for people who prefer reduced motion. */
 .beam {
   position: absolute;
-  left: 4%;
+  left: -18%;               /* pivot sits off-screen, like a lighthouse beyond the edge */
   top: -60%;
-  width: 220%;
+  width: 240%;
   height: 220%;
   transform-origin: 0 50%;
-  background: conic-gradient(from 72deg at 0 50%,
-    transparent 0deg, var(--beam) 12deg, rgba(255, 226, 150, 0.08) 22deg, transparent 34deg);
+  background: conic-gradient(from 75deg at 0 50%,
+    transparent 0deg, var(--beam) 9deg, rgba(255, 226, 150, 0.08) 17deg, transparent 26deg);
   mix-blend-mode: screen;
   pointer-events: none;
   animation: sweep 14s ease-in-out infinite alternate;
