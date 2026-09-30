@@ -206,7 +206,18 @@ p:last-child { margin-bottom: 0; }
 
 /* ---------- Project pages (shared) ---------- */
 
-.project-label { margin-bottom: 0.9rem; }
+/* Label row: "← 01 | 02 — Project | 03 →" */
+.project-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.9em;
+  margin-bottom: 0.9rem;
+}
+.project-label .sep { color: var(--rule); }
+.project-label a { text-decoration: none; color: var(--muted); transition: color 0.2s ease; }
+.project-label a:hover,
+.project-label a:focus-visible { color: var(--fg); }
 
 .project-title {
   font-weight: 800;
