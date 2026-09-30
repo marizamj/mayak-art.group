@@ -23,12 +23,6 @@ python3 -m http.server 8420
 
 Then open http://localhost:8420.
 
-## Replace the placeholders
-
-Search the files for `PLACEHOLDER`. That covers the texts, email, Instagram link, video
-links and image alt texts. The images in `images/` are placeholder SVGs, so replace them
-with your own photos and update the `src` in the HTML to match.
-
 ## Add a project
 
 1. Copy an existing project page, e.g. `projects/the-lighthouse-of-now-here.html` → `projects/new-name.html`.
