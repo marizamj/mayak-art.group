@@ -35,7 +35,8 @@ with your own photos and update the `src` in the HTML to match.
 2. Choose the layout on the `<body>` tag:
    - `layout-story`: big hero image, title, facts column + content column
    - `layout-split`: text fixed on the left, images scroll on the right
-3. Edit the `<title>`, meta description, `og:` tags, title, facts and intro.
+3. Edit the `<title>`, meta description, `og:` tags, title, facts and intro. For the link
+   preview image, add a 1200×630 JPG to `images/og/` and point `og:image` at it.
 4. Build the content from the blocks in `snippets.html` (text, image, image pair,
    video, loop, audio, embed, links).
 5. Put images in `images/new-name/`.
