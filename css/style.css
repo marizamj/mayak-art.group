@@ -332,6 +332,25 @@ p:last-child { margin-bottom: 0; }
 /* ---------- Content blocks (see snippets.html) ---------- */
 
 .block-text { max-width: 38em; }
+.block-text .lead { font-size: 1.35rem; line-height: 1.4; letter-spacing: -0.01em; }
+
+/* A list set apart from the text, e.g. the questions on Electric Sheep */
+.block-text .questions {
+  list-style: none;
+  margin: 0 0 1em;
+  padding: 0.2em 0 0.2em 1.2em;
+  border-left: 1px solid var(--rule);
+}
+.block-text .questions li { margin: 0.35em 0; }
+
+/* Small heading above a list of links */
+.links-title {
+  margin: 0 0 10px;
+  font-size: inherit;
+  font-weight: normal;
+  color: var(--muted);
+}
+.block-links + .block-links { margin-top: var(--gutter); }
 .block-text h2 {
   font-size: 1.5rem;
   letter-spacing: -0.01em;
@@ -351,6 +370,18 @@ figcaption { margin-top: 10px; }
   align-items: start;
 }
 .block-pair figcaption { grid-column: 1 / -1; margin-top: 0; }
+.block-trio { grid-template-columns: repeat(3, 1fr); }
+/* A smaller single image or video, centred. */
+.narrow { max-width: min(100%, 520px); margin-inline: auto; }
+
+/* Items side by side at the same height; each sets --ar (width / height). */
+.block-row { display: flex; gap: var(--gutter); align-items: flex-start; }
+.block-row > * { flex: var(--ar) 1 0; min-width: 0; aspect-ratio: var(--ar); }
+.block-row img { width: 100%; height: auto; background: var(--placeholder); }
+@media (max-width: 600px) {
+  .block-row { flex-direction: column; }
+  .block-row > * { width: 100%; flex: none; }
+}
 @media (max-width: 600px) {
   .block-pair { grid-template-columns: 1fr; }
 }
@@ -393,6 +424,35 @@ figcaption { margin-top: 10px; }
 }
 .block-links a::after { content: "→"; }
 .block-links a:hover { background: rgba(232, 230, 223, 0.04); }
+
+/* Chapter list in the facts column (built by js/site.js on story pages
+   with chapters). Facts + list stay in view while reading. */
+.facts-sticky { position: sticky; top: var(--gutter); }
+.chapter-nav {
+  margin-top: var(--gap);
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+.chapter-nav ol { list-style: none; margin: 0; padding: 0; }
+.chapter-nav li { margin: 0.55em 0; line-height: 1.35; }
+.chapter-nav a {
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+.chapter-nav a:hover,
+.chapter-nav a:focus-visible,
+.chapter-nav a[aria-current] { color: var(--fg); }
+.chapter-nav a[aria-current]::before { content: "→ "; }
+.project-content .chapter-title,
+.project-content .block-credits h2 { scroll-margin-top: var(--gutter); }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media (max-width: 800px) {
+  .facts-sticky { position: static; }
+  .chapter-nav { margin-top: var(--gutter); }
+}
 
 /* Chapter heading: splits a long project page into sections. */
 .project-content > .chapter-title {

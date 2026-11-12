@@ -18,6 +18,62 @@
   wide.addEventListener('change', update);
 })();
 
+// Story layout: a chapter list in the facts column, built from the page's
+// chapter headings (.chapter-title) plus Credits. The facts and the list stay
+// in view while you read, and the current chapter is highlighted. Adding or
+// renaming a chapter in the HTML updates the list by itself. Pages with fewer
+// than two chapters get nothing; without this script the page reads as before.
+(function () {
+  var facts = document.querySelector('.layout-story .project-facts');
+  if (!facts) return;
+  var heads = [].slice.call(document.querySelectorAll('.project-content .chapter-title, .project-content .block-credits h2'));
+  if (heads.length < 2) return;
+
+  var sticky = document.createElement('div');
+  sticky.className = 'facts-sticky';
+  while (facts.firstChild) sticky.appendChild(facts.firstChild);
+  facts.appendChild(sticky);
+
+  var nav = document.createElement('nav');
+  nav.className = 'chapter-nav';
+  nav.setAttribute('aria-label', 'Chapters');
+  var list = document.createElement('ol');
+  var links = heads.map(function (h) {
+    if (!h.id) h.id = h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent.trim();
+    li.appendChild(a);
+    list.appendChild(li);
+    return a;
+  });
+  nav.appendChild(list);
+  sticky.appendChild(nav);
+
+  // Highlight the chapter whose heading was passed last (top 40% of the screen).
+  var ticking = false;
+  function mark() {
+    ticking = false;
+    var line = window.innerHeight * 0.4, current = -1;
+    for (var i = 0; i < heads.length; i++) {
+      if (heads[i].getBoundingClientRect().top <= line) current = i;
+    }
+    // At the very bottom the last chapter may be too short to reach the line.
+    var root = document.documentElement;
+    if (window.innerHeight + window.scrollY >= root.scrollHeight - 2) current = heads.length - 1;
+    links.forEach(function (a, i) {
+      if (i === current) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(mark); }
+  }, { passive: true });
+  window.addEventListener('resize', mark);
+  mark();
+})();
+
 // Homepage beam: follows the cursor with a delay.
 // The beam's angle is a Gaussian-weighted average of where it was asked to
 // point over the last moments (centred DELAY ms in the past, spread SIGMA),
