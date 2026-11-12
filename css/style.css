@@ -606,3 +606,10 @@ figcaption { margin-top: 10px; }
 
 .notfound { padding: var(--gap) var(--gutter); }
 .notfound p { margin-top: 1.5rem; }
+
+/* Electric Sheep: the pixel flock (js/pasture.js) */
+.pasture { height: 96px; border-bottom: 1px solid var(--rule); }
+.pasture canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+.block-credits dd.with-sheep { display: flex; align-items: flex-end; }
+.block-credits dd.with-sheep > span { flex: none; padding-bottom: 6px; }
+.credit-sheep { flex: 1 1 auto; min-width: 0; margin-left: 0.8em; image-rendering: pixelated; }
